@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Promise polyfill -->
+    <script src="https://www.promisejs.org/polyfills/promise-7.0.4.min.js"></script>
+    
+    <!--
+    Insert your own data-api-key and data-client-id (from Google Cloud
+    Console) below. Configure your chosen scopes and service APIS
+    (space-delimited).
+    -->
+    <script
+      src="onGAPILoad.js"
+      data-api-key=""
+      data-client-id=""
+      data-scope="https://www.googleapis.com/auth/devstorage.read_write"
+      data-services="storage/v1">
+    </script>
+  </head>
+  <body>
+    <!--
+    Configure container for Google Sign-In button with options
+    from gapi.signin2.render():
+    
+    https://developers.google.com/identity/sign-in/web/reference#gapi.signin2.render
+    -->
+    <div id="gapi-login" data-theme="dark"></div>
+    <script>
+     onGAPILoad.token().then(function(token) {
+       console.log('Ready to make authenticated Google API calls.');
+     });
+    </script>
+  </body>
+</html>
