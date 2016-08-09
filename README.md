@@ -1,13 +1,23 @@
 # onGAPILoad
 
 onGAPILoad.js is a convenience script to simplify Google API
-authentication and loading. onGAPILoad.js uses ECMAScript 6 Promises,
-so a polyfill should be used for browsers without Promise support.
+authentication and loading. Its simplest usage requires including two
+HTML elements: a `<script>` element to load the script and a `<div>`
+placeholder for the Google sign-in button. See the
+[sample HTML page](https://github.com/rhashimoto/onGAPILoad.js/blob/master/sample.html)
+for a quick usage overview.
+
+A Promise polyfill from
+[www.promisejs.org](https://www.promisejs.org/) is included in the
+minified script. Developers using the unminified script should either
+use their own polyfill or target browsers that natively support
+ECMAScript 6 Promise.
+
 Configuration is done with `data-*` attributes on the script element,
 e.g.:
 
     <script
-      src="onGAPILoad.js"
+      src="onGAPILoad.min.js"
       data-api-key="YOUR API KEY"
       data-client-id="YOUR CLIENT ID"
       data-scope="https://www.googleapis.com/auth/devstorage.read_write"
