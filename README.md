@@ -7,21 +7,15 @@ placeholder for the Google sign-in button. See the
 [sample HTML page](https://github.com/rhashimoto/onGAPILoad.js/blob/master/sample.html)
 for a quick usage overview.
 
-A Promise polyfill from
-[www.promisejs.org](https://www.promisejs.org/) is included in the
-minified script. Developers using the unminified script should either
-use their own polyfill or target browsers that natively support
-ECMAScript 6 Promise.
-
 Configuration is done with `data-*` attributes on the script element,
 e.g.:
 
     <script
-      src="onGAPILoad.min.js"
+      src="onGAPILoad.js"
       data-api-key="YOUR API KEY"
       data-client-id="YOUR CLIENT ID"
       data-scope="https://www.googleapis.com/auth/devstorage.read_write"
-      data-services="storage/v1">
+      data-discovery="https://www.googleapis.com/discovery/v1/apis/storage/v1/rest">
     </script>
 
 The Google API Key and Client ID must be created for your project in
@@ -35,16 +29,17 @@ for the end user to authorize for use with their account. The
 requested scopes should be declared (separated by a space) in the
 `data-scope` attribute.
 
-The Google APIs you wish to load should be declared (separated by a
-space) int he `data-services` attribute. Each API is specified with a
-name and a version separated by a '/', (e.g. `storage/v1`). A list of
-all APIs can be found in the [APIs Explorer](https://developers.google.com/apis-explorer/#p/);
-click on any API to see its calls.
+[Discovery docs](https://developers.google.com/api-client-library/javascript/features/discovery)
+for the Google APIs you wish to load should be declared
+(separated by a space) in the `data-discovery` attribute.
+A list of all APIs can be found in the
+[APIs Explorer](https://developers.google.com/apis-explorer/#p/); click on
+any API to see its calls.
 
 For example, the API Explorer shows the current Calendar API
 version is "v3". Clicking on it shows the [list of Calendar API calls](https://developers.google.com/apis-explorer/#p/calendar/v3/)
 All the calls begin with "calendar", so you would configure
-access to this API by adding `calendar/v3` to the `data-services`
+access to this API by adding the discovery doc URL (`https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest`) to the `data-discovery`
 attribute, and request the user's events by calling
 [`gapi.client.calendar.events.list()`](https://developers.google.com/apis-explorer/#p/calendar/v3/calendar.events.list) (after authorization):
 

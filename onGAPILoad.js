@@ -8,7 +8,7 @@ self['onGAPILoad'] = (function() {
   var GAPI_CLIENT_ID = script.getAttribute('data-client-id');
   var GAPI_ELEMENT = script.getAttribute('data-login-element') || 'gapi-login';
   var GAPI_SCOPE = script.getAttribute('data-scope');
-  var GAPI_SERVICES = script.getAttribute('data-services') || '';
+  var GAPI_DISCOVERY = script.getAttribute('data-discovery') || '';
   
   var onGAPILoad;
   var authCallbacks = [];
@@ -67,17 +67,10 @@ self['onGAPILoad'] = (function() {
     }
     
     // Load requested service APIs.
-    var promises = [];
-    Array.prototype.forEach.call(GAPI_SERVICES.split(/\s+/), function(api) {
-      if (api) {
-        var name, version;
-        [name, version] = api.split(/[@/:]/);
-        if (!gapi.client[name])
-          promises.push(gapi.client.load(name, version));
-      }
+    return gapi.client.init({
+      apiKey: GAPI_API_KEY,
+      discoveryDocs: GAPI_DISCOVERY.split(/\s+/)
     });
-
-    return Promise.all(promises);
   });
 
   onGAPILoad['ready'] = function() {
